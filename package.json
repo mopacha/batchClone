@@ -1,0 +1,11 @@
+{
+  "name": "batch-clone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mopacha/batchClone.git",
+  "author": "wangpeng",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
