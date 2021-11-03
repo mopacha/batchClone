@@ -60,18 +60,18 @@ async function getProjectList(groupId) {
 };
 
 
-const gitClone = async (newPath, projectName, repoUrl) => {
+async function gitClone(newPath, projectName, repoUrl) {
   try {
     // 执行clone
     console.log(`start clone ${projectName}: into ==> ${newPath} ......`);
     await exec(`git clone ${repoUrl}`, { cwd: newPath });
     console.log(`clone ${projectName} success ^_^`);
   } catch (error) {
-    throw (error);
+    gitPull(newPath, projectName, repoUrl)
   }
 }
 
-const gitPull = async (newPath, projectName, repoUrl) => {
+async function gitPull(newPath, projectName, repoUrl) {
   try {
     console.log(`git pull ${projectName} and path is ${newPath}`);
     await exec(`git remote prune origin`, { cwd: `${newPath}${projectName}` });
@@ -80,7 +80,7 @@ const gitPull = async (newPath, projectName, repoUrl) => {
     console.log(`git pull  done ^_^`);
   } catch (error) {
     await exec(`sudo rm -rf ${projectName}`, { cwd: newPath });
-    gitClone(newPath, projectName)
+    gitClone(newPath, projectName, repoUrl)
   }
 }
 
@@ -108,7 +108,7 @@ const start = async () => {
             projectName = projectName.toLowerCase().split(' ').join('-');
           }
           // 如果clone 过了， 则执行git pull
-          if (fs.existsSync(`${newPath}${projectName}`)) {
+          if (fs.existsSync(`${newPath}${projectName}`) || ['item-filter', 'eslint-cli'].includes(projectName)) {
             await gitPull(newPath, projectName, repoUrl)
           } else {
             await gitClone(newPath, projectName, repoUrl)
