@@ -102,7 +102,7 @@ const start = async () => {
       if (Array.isArray(projects) && projects.length > 0) {
         for (let j = 0, len = projects.length; j < len; j++) {
           const repoUrl = projects[j].http_url_to_repo;
-          let projectName = projects[j].name;
+          let projectName = projects[j].path || projects[j].name;
 
           if (projectName.indexOf(' ') > -1) {
             projectName = projectName.toLowerCase().split(' ').join('-');
