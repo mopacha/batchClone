@@ -79,6 +79,7 @@ const gitPull = async (newPath, projectName, repoUrl) => {
     await exec(`sudo git pull`, { cwd: `${newPath}${projectName}` });
     console.log(`git pull  done ^_^`);
   } catch (error) {
+    await exec(`sudo rm -rf ${projectName}`, { cwd: newPath });
     gitClone(newPath, projectName)
   }
 }
