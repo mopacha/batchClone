@@ -107,9 +107,13 @@ const start = async () => {
           if (projectName.indexOf(' ') > -1) {
             projectName = projectName.toLowerCase().split(' ').join('-');
           }
+          if (['app-project-template'].includes(projectName)) {
+            break;
+          }
           // 如果clone 过了， 则执行git pull
           if (fs.existsSync(`${newPath}${projectName}`) || ['item-filter', 'eslint-cli'].includes(projectName)) {
-            await gitPull(newPath, projectName, repoUrl)
+            // await gitPull(newPath, projectName, repoUrl)
+            console.log(`git pull ${projectName}`)
           } else {
             await gitClone(newPath, projectName, repoUrl)
           }
