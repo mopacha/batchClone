@@ -65,8 +65,9 @@ const gitClone = async (newPath, projectName, repoUrl) => {
     // 执行clone
     console.log(`start clone ${projectName}: into ==> ${newPath} ......`);
     await exec(`sudo rm -rf ${projectName}`, { cwd: newPath });
-    if (projectName === 'I18n Ui') {
-      await exec(`sudo rm -rf i18n-ui`, { cwd: newPath });
+    if (projectName.indexOf(' ') > -1) {
+      const deleteProjectName = projectName.toLowerCase().split(' ').join('-');
+      await exec(`sudo rm -rf ${deleteProjectName}`, { cwd: newPath });
     }
     await exec(`git clone ${repoUrl}`, { cwd: newPath });
     console.log(`clone ${projectName} success ^_^`);
