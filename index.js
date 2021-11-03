@@ -67,7 +67,7 @@ async function gitClone(newPath, projectName, repoUrl) {
     await exec(`git clone ${repoUrl}`, { cwd: newPath });
     console.log(`clone ${projectName} success ^_^`);
   } catch (error) {
-    gitPull(newPath, projectName, repoUrl)
+    throw (error);
   }
 }
 
